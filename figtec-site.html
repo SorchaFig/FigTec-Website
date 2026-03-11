@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fig™ | FigTec Ltd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --sage: #5a7a6a; --sage-light: #8aab97; --sage-pale: #e8f0eb;
+      --charcoal: #1e2a24; --warm-white: #faf9f6; --gold: #c8a96e;
+      --gold-light: #f0e4cc; --text: #2d3a33; --text-light: #5a6b61;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--warm-white); color: var(--text); line-height: 1.7; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250,249,246,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(90,122,106,0.12);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--charcoal); letter-spacing: -0.5px; }
+    .nav-logo span { color: var(--sage); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--text-light); letter-spacing: 0.3px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--sage); }
+    .nav-cta { background: var(--charcoal); color: white !important; padding: 0.55rem 1.4rem; border-radius: 100px; font-weight: 600 !important; }
+    .nav-cta:hover { background: var(--sage) !important; color: white !important; }
+
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 8rem 4rem 5rem;
+      background: linear-gradient(135deg, #f0f5f2 0%, var(--warm-white) 50%, #f5f0e8 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(90,122,106,0.08) 0%, transparent 70%); border-radius: 50%; }
+    .hero::after { content: ''; position: absolute; bottom: -150px; left: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%); border-radius: 50%; }
+    .hero-content { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--sage-pale); color: var(--sage); font-size: 0.78rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 0.45rem 1.1rem; border-radius: 100px; margin-bottom: 2rem; border: 1px solid rgba(90,122,106,0.2); }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); line-height: 1.1; color: var(--charcoal); margin-bottom: 1.5rem; letter-spacing: -1px; }
+    .hero h1 em { font-style: italic; color: var(--sage); }
+    .hero-sub { font-size: 1.2rem; color: var(--text-light); max-width: 620px; margin-bottom: 2.5rem; font-weight: 400; line-height: 1.8; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--charcoal); color: white; padding: 1rem 2.2rem; border-radius: 100px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.25s; letter-spacing: 0.2px; }
+    .btn-primary:hover { background: var(--sage); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--charcoal); padding: 1rem 2.2rem; border-radius: 100px; font-size: 0.95rem; font-weight: 600; text-decoration: none; border: 1.5px solid rgba(30,42,36,0.25); transition: all 0.25s; }
+    .btn-secondary:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+    .hero-stat-row { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid rgba(90,122,106,0.15); flex-wrap: wrap; }
+    .hero-stat h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--charcoal); line-height: 1; }
+    .hero-stat p { font-size: 0.82rem; color: var(--text-light); margin-top: 0.3rem; font-weight: 500; letter-spacing: 0.2px; }
+
+    section { padding: 6rem 4rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); color: var(--charcoal); line-height: 1.2; margin-bottom: 1.2rem; letter-spacing: -0.5px; }
+    .section-sub { font-size: 1.05rem; color: var(--text-light); max-width: 580px; line-height: 1.8; }
+
+    .problem { background: var(--charcoal); }
+    .problem .section-label { color: var(--gold); }
+    .problem .section-title { color: white; }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem; align-items: start; }
+    .problem-text p { color: rgba(255,255,255,0.75); font-size: 1.05rem; line-height: 1.9; margin-bottom: 1.5rem; }
+    .problem-text p strong { color: white; }
+    .problem-stats { display: flex; flex-direction: column; gap: 1.5rem; }
+    .stat-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.8rem; backdrop-filter: blur(10px); }
+    .stat-card h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-card p { color: rgba(255,255,255,0.65); font-size: 0.9rem; }
+
+    .solution { background: var(--warm-white); }
+    .solution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3.5rem; }
+    .feature-card { background: white; border: 1px solid rgba(90,122,106,0.12); border-radius: 20px; padding: 2.2rem; transition: all 0.3s; }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(90,122,106,0.12); border-color: var(--sage-light); }
+    .feature-icon { width: 52px; height: 52px; background: var(--sage-pale); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.4rem; }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.7rem; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; }
+
+    .vision { background: linear-gradient(135deg, var(--sage-pale) 0%, #f0ebe0 100%); }
+    .vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+    .vision-milestones { display: flex; flex-direction: column; gap: 0; }
+    .milestone { display: flex; gap: 1.5rem; padding: 1.8rem 0; border-bottom: 1px solid rgba(90,122,106,0.15); }
+    .milestone:last-child { border-bottom: none; }
+    .milestone-year { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--sage); min-width: 60px; padding-top: 2px; }
+    .milestone-content h4 { font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.3rem; }
+    .milestone-content p { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+
+    .founder { background: white; }
+    .founder-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: center; }
+    .founder-visual { position: relative; }
+    .founder-photo { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center top; border-radius: 24px; display: block; }
+    .founder-tag { position: absolute; bottom: -1rem; right: -1rem; background: var(--charcoal); color: white; padding: 1rem 1.5rem; border-radius: 16px; font-size: 0.82rem; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .founder-tag span { display: block; color: var(--gold); font-size: 1.1rem; font-weight: 700; }
+    .founder-content .section-title { margin-top: 0.5rem; }
+    .founder-content p { font-size: 1rem; color: var(--text-light); line-height: 1.9; margin-bottom: 1.2rem; }
+    .founder-content p strong { color: var(--charcoal); }
+    .credentials { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
+    .credential { background: var(--sage-pale); color: var(--sage); font-size: 0.8rem; font-weight: 600; padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid rgba(90,122,106,0.2); }
+
+    .opportunity { background: var(--charcoal); }
+    .opportunity .section-label { color: var(--gold); }
+    .opportunity .section-title { color: white; }
+    .opp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .opp-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 2rem 1.5rem; text-align: center; transition: all 0.3s; }
+    .opp-card:hover { background: rgba(255,255,255,0.09); transform: translateY(-4px); }
+    .opp-card .flag { font-size: 2rem; margin-bottom: 1rem; }
+    .opp-card h3 { color: white; font-weight: 700; margin-bottom: 0.4rem; font-size: 1rem; }
+    .opp-card p { color: rgba(255,255,255,0.5); font-size: 0.82rem; }
+
+    .cta-section { background: linear-gradient(135deg, var(--sage) 0%, #3d5c4d 100%); text-align: center; padding: 7rem 4rem; }
+    .cta-section .section-label { color: rgba(255,255,255,0.6); }
+    .cta-section .section-title { color: white; max-width: 700px; margin: 0 auto 1.5rem; }
+    .cta-section p { color: rgba(255,255,255,0.75); font-size: 1.05rem; margin-bottom: 2.5rem; }
+    .btn-white { background: white; color: var(--sage); padding: 1rem 2.5rem; border-radius: 100px; font-size: 1rem; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.25s; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+    .btn-white:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+
+    footer { background: var(--charcoal); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; }
+    footer .logo span { color: var(--sage-light); }
+    footer p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: rgba(255,255,255,0.4); font-size: 0.82rem; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sage-light); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .problem-grid, .vision-grid, .founder-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .solution-grid { grid-template-columns: 1fr; }
+      .opp-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Fig<span>™</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#solution">Our Solution</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#founder">Founder</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">Seeking Investment · FigTec Ltd</div>
+    <h1>Technology that supports<br/><em>survivors</em> to reclaim<br/>their lives.</h1>
+    <p class="hero-sub">Fig™ is a trauma-informed digital support platform helping people impacted by coercive and controlling behaviour, built to scale across Ireland, the UK, Europe, and the United States.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Talk to Sorcha</a>
+      <a href="#solution" class="btn-secondary">Explore Fig™</a>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat"><h3>1 in 4</h3><p>Women experience coercive control</p></div>
+      <div class="hero-stat"><h3>4</h3><p>Target markets: IE · UK · EU · US</p></div>
+      <div class="hero-stat"><h3>Zero</h3><p>Dedicated digital platforms in this space</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problem">
+  <div class="section-inner">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-title">Coercive control is an epidemic<br/>without a scalable solution.</h2>
+    <div class="problem-grid">
+      <div class="problem-text">
+        <p>Coercive and controlling behaviour is one of the most damaging and least understood forms of domestic abuse. Unlike physical violence, it operates invisibly: isolating victims, eroding identity, and making escape feel impossible.</p>
+        <p>Survivors face <strong>fragmented, underfunded, and geographically limited</strong> support systems. Crisis services are overstretched. Waiting lists are long. And existing digital tools were never designed with trauma in mind.</p>
+        <p><strong>Fig™ changes that.</strong> By combining clinical best practice with intuitive, compassionate technology, Fig™ meets survivors exactly where they are: on their phone, at any hour, without judgment.</p>
+      </div>
+      <div class="problem-stats">
+        <div class="stat-card"><h3>2.4M</h3><p>People in the UK alone experience coercive control each year</p></div>
+        <div class="stat-card"><h3>76%</h3><p>Of survivors report difficulty accessing timely, appropriate support</p></div>
+        <div class="stat-card"><h3>£66bn</h3><p>Annual cost of domestic abuse to the UK economy</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="solution" id="solution">
+  <div class="section-inner">
+    <div class="section-label">Our Solution</div>
+    <h2 class="section-title">Fig™: trauma-informed support,<br/>available to anyone, anywhere.</h2>
+    <p class="section-sub">Designed with survivors and clinical specialists, Fig™ is a safe, private, and empowering platform that provides structured support at every stage of a person's journey.</p>
+    <div class="solution-grid">
+      <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Trauma-Informed Design</h3><p>Every interaction, flow, and piece of content is built around clinical trauma principles, ensuring the platform never re-traumatises those it serves.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><h3>Safety and Privacy First</h3><p>Built with robust security to protect vulnerable users. Discreet, fast-exit functionality and anonymised engagement as standard.</p></div>
+      <div class="feature-card"><div class="feature-icon">🌱</div><h3>Personalised Pathways</h3><p>Fig™ guides users through their unique journey, from recognition and safety planning through to long-term recovery and empowerment.</p></div>
+      <div class="feature-card"><div class="feature-icon">📱</div><h3>Always Available</h3><p>Support accessible 24/7, from any device. No waiting lists, no geography limitations. Just help, when it is needed most.</p></div>
+      <div class="feature-card"><div class="feature-icon">🤝</div><h3>Professional Network</h3><p>Seamlessly connects users to vetted local services, solicitors, and crisis support, bridging the digital and physical support ecosystems.</p></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>Outcomes-Driven</h3><p>Built-in impact measurement allows organisations and commissioners to evidence real-world outcomes and return on investment from day one.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="vision" id="vision">
+  <div class="section-inner">
+    <div class="section-label">Our Vision</div>
+    <div class="vision-grid">
+      <div>
+        <h2 class="section-title">A world where no survivor faces this alone.</h2>
+        <p class="section-sub">FigTec Ltd is building Fig™ to be the global standard in trauma-informed digital support, starting in Ireland and scaling to reach millions across the world.</p>
+      </div>
+      <div class="vision-milestones">
+        <div class="milestone"><div class="milestone-year">2025</div><div class="milestone-content"><h4>Foundation and Build</h4><p>Platform development, clinical validation, and pilot launch in Ireland.</p></div></div>
+        <div class="milestone"><div class="milestone-year">2026</div><div class="milestone-content"><h4>Irish Market Launch</h4><p>Full public launch across Ireland, with partnerships with statutory and third-sector organisations.</p></div></div>
+        <div class="milestone"><div class="milestone-year">2027</div><div class="milestone-content"><h4>UK Expansion</h4><p>Scale into the United Kingdom, partnering with national domestic abuse charities and NHS services.</p></div></div>
+        <div class="milestone"><div class="milestone-year">2028-29</div><div class="milestone-content"><h4>Europe and United States</h4><p>Localised deployment across key European markets and entry into the US, the world's largest addressable market.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="founder" id="founder">
+  <div class="section-inner">
+    <div class="founder-grid">
+      <div class="founder-visual">
+        <img src="sorcha.jpg" alt="Sorcha McAnespy, Founder of FigTec Ltd" class="founder-photo" id="founderPhoto"/>
+        <div class="founder-tag">Founder and CEO<span>Sorcha McAnespy</span></div>
+      </div>
+      <div class="founder-content">
+        <div class="section-label">The Founder</div>
+        <h2 class="section-title">Engineer. Analyst. Elected leader. Advocate.</h2>
+        <p>Sorcha McAnespy is the founder of FigTec Ltd and brings over a decade of experience across <strong>public service, political leadership, and systems-level advocacy</strong>. She is an engineer and data analyst whose career has always centred on making institutions work better for the people they serve.</p>
+        <p>A member of <strong>Fianna Fail</strong> for over ten years, Sorcha has been elected to the party's Ard Chomhairle and is a respected voice in Irish political life. As an elected councillor on <strong>Fermanagh and Omagh District Council</strong>, she served as Chair of the inaugural Policing and Community Safety Partnership (PCSP) and Chair of the Western Trust Local Commissioning Group, working across statutory services, community organisations, and cross-border stakeholders.</p>
+        <p>Her approach to coercive control is rooted in governance, health commissioning, and policy. She is particularly focused on <strong>reframing coercive control as a pattern-based, systemic harm</strong> that requires earlier recognition and preventative responses across justice, health, education, and workplaces. She is a frequent speaker on coercive control, public safety, and the role of technology in reducing harm before crisis point.</p>
+        <div class="credentials">
+          <span class="credential">Engineer and Data Analyst</span>
+          <span class="credential">Elected Councillor</span>
+          <span class="credential">Fianna Fail · Ard Chomhairle</span>
+          <span class="credential">Chair · PCSP</span>
+          <span class="credential">Health Commissioning</span>
+          <span class="credential">Coercive Control Policy</span>
+          <span class="credential">Women's Leadership Advocate</span>
+          <span class="credential">Public Speaker</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="opportunity" id="opportunity">
+  <div class="section-inner">
+    <div class="section-label">Market Opportunity</div>
+    <h2 class="section-title">A global market with no<br/>dedicated digital solution.</h2>
+    <div class="opp-grid">
+      <div class="opp-card"><div class="flag">🇮🇪</div><h3>Ireland</h3><p>Home market · First mover advantage · Strong statutory partnership pipeline</p></div>
+      <div class="opp-card"><div class="flag">🇬🇧</div><h3>United Kingdom</h3><p>67M population · Coercive Control Act in law since 2015 · NHS and charity ecosystem</p></div>
+      <div class="opp-card"><div class="flag">🇪🇺</div><h3>Europe</h3><p>Growing legislative landscape · EU Victims' Rights Directive · Significant underserved population</p></div>
+      <div class="opp-card"><div class="flag">🇺🇸</div><h3>United States</h3><p>330M population · $10bn+ domestic abuse services sector · High digital health adoption</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="section-label">Get Involved</div>
+  <h2 class="section-title">Invest in technology that saves lives.</h2>
+  <p>Fig™ is at an exciting early stage. The right investment will turn a powerful idea into a global platform. If you believe in technology with purpose, Sorcha would love to speak with you.</p>
+  <a href="mailto:sorcha@figtec.ie" class="btn-white">Contact Sorcha · sorcha@figtec.ie</a>
+</section>
+
+<footer>
+  <div class="logo">Fig<span>™</span> · FigTec Ltd</div>
+  <p>© 2025 FigTec Ltd. All rights reserved. Fig™ is a registered trademark.</p>
+  <div class="footer-links">
+    <a href="#problem">Problem</a>
+    <a href="#solution">Solution</a>
+    <a href="#founder">Founder</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
